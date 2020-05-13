@@ -1,0 +1,33 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}RouterTests
+
+class {{ prefix }}{{ module_info.name }}RouterTests: UnitTest {
+    
+    // MARK: - Properties
+    
+    private let transitionHandler = TransitionHandlerMock()
+    private lazy var router = {{ prefix }}{{ module_info.name }}Router(transitionHandler: self.transitionHandler)
+    
+    // MARK: - Tests
+    
+    func testClose() {
+        
+        /// given
+        
+        transitionHandler.invokedCloseCurrentModule = false
+        
+        /// when
+        
+        router.close()
+        
+        /// then
+        
+        expect(self.transitionHandler.invokedCloseCurrentModule).to(beTrue())
+        expect(self.transitionHandler.invokedCloseCurrentModuleParameters?.animated).to(beTrue())
+    }
+}

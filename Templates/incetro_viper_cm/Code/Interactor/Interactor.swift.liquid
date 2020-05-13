@@ -1,0 +1,20 @@
+{% include 'header' %}
+
+import Foundation
+
+// MARK: - {{ prefix }}{{ module_info.name }}Interactor
+
+class {{ prefix }}{{ module_info.name }}Interactor {
+    
+    // MARK: - Properties
+    
+    /// Presenter instance
+    weak var output: {{ prefix }}{{ module_info.name }}InteractorOutput?
+}
+
+// MARK: - {{ prefix }}{{ module_info.name }}InteractorInput
+
+extension {{ prefix }}{{ module_info.name }}Interactor: {{ prefix }}{{ module_info.name }}InteractorInput {
+    
+    
+}

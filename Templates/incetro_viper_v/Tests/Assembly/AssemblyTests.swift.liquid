@@ -1,0 +1,43 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Swinject
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}ModuleAssemblyTests
+
+class {{ prefix }}{{ module_info.name }}ModuleAssemblyTests: UnitTest {
+    
+    func testAssembly() {
+        
+        /// given
+        
+        let container = Container()
+        let assembly = {{ prefix }}{{ module_info.name }}ModuleAssembly()
+        
+        /// when
+        
+        assembly.assemble(inContainer: container)
+        
+        /// then
+
+        let view = container.resolve({{ prefix }}{{ module_info.name }}View.self)
+        let presenter = view?.output as? {{ prefix }}{{ module_info.name }}Presenter
+        let interactor = presenter?.interactor as? {{ prefix }}{{ module_info.name }}Interactor
+        
+        expect(view).toNot(beNil())
+        expect(presenter).toNot(beNil())
+        expect(interactor).toNot(beNil())
+        
+        expect(view?.output).toNot(beNil())
+        expect(view?.output).to(beIdenticalTo(presenter))
+        
+        expect(presenter?.view).to(beIdenticalTo(view))
+        expect(presenter?.interactor).toNot(beNil())
+        expect(presenter?.interactor).to(beIdenticalTo(interactor))
+        
+        expect(interactor?.output).toNot(beNil())
+        expect(interactor?.output).to(beIdenticalTo(presenter))
+    }
+}

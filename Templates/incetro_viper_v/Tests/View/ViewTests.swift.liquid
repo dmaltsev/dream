@@ -1,0 +1,52 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewTests
+
+class {{ prefix }}{{ module_info.name }}ViewTests: UnitTest {
+    
+    // MARK: - Properties
+    
+    private let view = {{ prefix }}{{ module_info.name }}View()
+    private let output = {{ prefix }}{{ module_info.name }}PresenterMock()
+    
+    // MARK: - Internal
+    
+    override func setUp() {
+        view.output = output
+        view.setupInitialState()
+    }
+    
+    // MARK: - Tests
+    
+    func testDidTriggerViewReadyEvent() {
+        
+        /// given
+        
+        output.invokedDidTriggerViewReadyEvent = false
+        
+        /// when
+        
+        view.ready()
+        
+        /// then
+        
+        expect(self.output.invokedDidTriggerViewReadyEvent).to(beTrue())
+    }
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}PresenterMock
+    
+    class {{ prefix }}{{ module_info.name }}PresenterMock: {{ prefix }}{{ module_info.name }}ViewOutput {
+
+        var invokedDidTriggerViewReadyEvent = false
+        var invokedDidTriggerViewReadyEventCount = 0
+
+        func didTriggerViewReadyEvent() {
+            invokedDidTriggerViewReadyEvent = true
+            invokedDidTriggerViewReadyEventCount += 1
+        }
+    }
+}

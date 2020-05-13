@@ -1,0 +1,66 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}
+
+class {{ prefix }}{{ module_info.name }}: UnitTest {
+    
+    // MARK: - Properties
+    
+    private let view = {{ prefix }}{{ module_info.name }}ViewController()
+    private let output = {{ prefix }}{{ module_info.name }}ViewOutputMock()
+    
+    // MARK: - Internal
+    
+    override func setUp() {
+        view.output = output
+        view.setupInitialState()
+    }
+    
+    // MARK: - Tests
+    
+    func testDidTriggerViewReadyEvent() {
+        
+        /// given
+        
+        output.invokedDidTriggerViewReadyEvent = false
+        
+        /// when
+        
+        view.viewDidLoad()
+        
+        /// then
+        
+        expect(self.output.invokedDidTriggerViewReadyEvent).to(beTrue())
+    }
+    
+    func testSetupInitialState() {
+        
+        /// given
+        
+        contentManager.invokedTableViewSetter = false
+        
+        /// when
+        
+        view.setupInitialState()
+        
+        /// then
+        
+    }
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}ViewOutputMock
+    
+    class {{ prefix }}{{ module_info.name }}ViewOutputMock: {{ prefix }}{{ module_info.name }}ViewOutput {
+        
+        var invokedDidTriggerViewReadyEvent = false
+        var invokedDidTriggerViewReadyEventCount = 0
+        
+        func didTriggerViewReadyEvent() {
+            invokedDidTriggerViewReadyEvent = true
+            invokedDidTriggerViewReadyEventCount += 1
+        }
+    }
+}

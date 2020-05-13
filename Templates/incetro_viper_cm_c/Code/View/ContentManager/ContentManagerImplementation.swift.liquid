@@ -1,0 +1,68 @@
+{% include 'header' %}
+
+import UIKit
+
+// MARK: - {{ prefix }}{{ module_info.name }}ContentManager
+
+class {{ prefix }}{{ module_info.name }}ContentManagerImplementation: NSObject, {{ prefix }}{{ module_info.name }}ContentManager {
+    
+    // MARK: - Properties
+    
+    /// {{ custom_parameters.cell }} controllers factory
+    fileprivate let controllersFactory: {{ custom_parameters.cell }}CellControllerFactory
+    
+    /// Current controllers which manipulates tableView's cells
+    fileprivate var controllers: [TableCellController] = []
+
+    /// UITableView with {{ custom_parameters.cell }} cells
+    var tableView: UITableView?
+    
+    // MARK: - Initializers
+
+    /// Default initializer
+    ///
+    /// - Parameter controllersFactory: {{ custom_parameters.cell | downcase }} controllers factory
+    init(controllersFactory: {{ custom_parameters.cell }}CellControllerFactory) {
+        self.controllersFactory = controllersFactory
+        super.init()
+    }
+
+    // MARK: - ContentManager
+
+    func dataSource(for tableView: UITableView) -> UITableViewDataSource {
+        return self
+    }
+
+    func delegate(for tableView: UITableView) -> UITableViewDelegate {
+        return self
+    }
+
+    func updateData(_ viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol]) {
+        guard let tableView = tableView else {
+            return
+        }
+        controllers = controllersFactory.controllers(with: viewModels, tableView: tableView)
+        tableView.reloadData()
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension {{ prefix }}{{ module_info.name }}ContentManagerImplementation: UITableViewDelegate {
+    
+    
+}
+
+// MARK: - UITableViewDataSource
+
+extension {{ prefix }}{{ module_info.name }}ContentManagerImplementation: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return controllers.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = controllers[indexPath.row].cellFromReusableCellHolder(tableView, forIndexPath: indexPath)
+        return cell
+    }
+}

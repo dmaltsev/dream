@@ -1,0 +1,18 @@
+{% include 'header' %}
+
+import UIKit
+
+// MARK: - {{ prefix }}{{ module_info.name }}Module
+
+class {{ prefix }}{{ module_info.name }}Module: Module {
+
+    typealias Input = {{ prefix }}{{ module_info.name }}ModuleInput
+
+    required init() {
+
+    }
+
+    static func instantiateTransitionHandler() -> UIViewController {
+		return {{ prefix }}{{ module_info.name }}ModuleAssembly().obtainViewController()
+    }
+}

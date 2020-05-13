@@ -1,0 +1,19 @@
+{% include 'header' %}
+
+import UIKit
+
+// MARK: - {{ prefix }}{{ module_info.name }}ModuleInitializer
+
+class {{ module_info.name }}ModuleInitializer: NSObject {
+
+    // MARK: - Properties
+    
+    //Connect with object on storyboard
+    @IBOutlet weak var {{ module_info.name | downcase }}ViewController: {{ module_info.name }}ViewController!
+
+    // MARK: - NSObject
+
+    override func awakeFromNib() {
+        {{ module_info.name }}ModuleAssembly().configureModuleForViewInput(viewInput: {{ module_info.name | downcase }}ViewController)
+    }
+}

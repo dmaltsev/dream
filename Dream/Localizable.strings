@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  Dream
+
+  Created by denis on 05.03.2020.
+  Copyright © 2020 Unknown. All rights reserved.
+*/
+
+"name" = "Имя";
+"age" = "Возраст";
+"help_to_choose" = "Помогите выбрать";
+"for" = "для";
+"ask_advice" = "Спросить совет";
+"ask_advice.2" = "Получить совет";
+"brand" = "Бренд";
+"or" = "или";
+
+"new_request.hint" = "Не знаешь что надеть?\nЗагрузи фото";
+"new_comment.hint" = "Добавь комментарий";
+
+"menu.option.all" = "Все девушки";
+"menu.option.my" = "Мои вопросы";
+"menu.option.comments" = "Мои комментарии";
+"menu.option.edit" = "Изменить имя и возраст";
+"menu.option.new" = "Загрузить свой вопрос";
+"menu.option.about" = "О приложении";

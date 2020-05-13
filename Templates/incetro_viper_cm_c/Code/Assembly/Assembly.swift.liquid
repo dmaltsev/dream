@@ -1,0 +1,75 @@
+{% include 'header' %}
+
+import UIKit
+import Swinject
+
+class {{ prefix }}{{ module_info.name }}ModuleAssembly: CollectableAssembly {
+
+    // MARK: - Initializers
+    
+    required init() {
+
+    }
+
+    // MARK: - Useful
+
+    func obtainViewController() -> {{ prefix }}{{ module_info.name }}ViewController {
+        return unwrap(container.resolve({{ prefix }}{{ module_info.name }}ViewController.self))
+    }
+
+    func configureModuleForViewInput(viewInput: {{ prefix }}{{ module_info.name }}ViewController) {
+        viewInput.output = container.resolve({{ prefix }}{{ module_info.name }}ViewOutput.self, argument: viewInput as {{ prefix }}{{ module_info.name }}ViewInput)
+        viewInput.contentManager = container.resolve({{ prefix }}{{ module_info.name }}ContentManager.self)
+    }
+    
+    // MARK: - Assembly
+    
+    func assemble(inContainer container: Container) {
+
+        container.register({{ prefix }}{{ module_info.name }}ViewController.self) { resolver in
+            let controller = {{ prefix }}{{ module_info.name }}ViewController()
+            controller.output = resolver.resolve({{ prefix }}{{ module_info.name }}ViewOutput.self, argument: controller as {{ prefix }}{{ module_info.name }}ViewInput)
+            controller.contentManager = resolver.resolve({{ prefix }}{{ module_info.name }}ContentManager.self)
+            return controller
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}RouterInput.self) { (resolver, transitionHandler: TransitionHandler) in
+            let router = {{ prefix }}{{ module_info.name }}Router(transitionHandler: transitionHandler)    
+            return router
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}ViewOutput.self) { (resolver, view: {{ prefix }}{{ module_info.name }}ViewInput) in
+            let {{ custom_parameters.cell | downcase }}CellViewModelDesigner = resolver.resolve({{ custom_parameters.cell }}CellViewModelDesigner.self).unwrap()
+            let presenter = {{ prefix }}{{ module_info.name }}Presenter({{ custom_parameters.cell | downcase }}CellViewModelDesigner: {{ custom_parameters.cell | downcase }}CellViewModelDesigner)
+            presenter.view = view
+            return presenter
+        }.initCompleted { (resolver, viewOutput) in
+            if let presenter = viewOutput as? {{ prefix }}{{ module_info.name }}Presenter {
+                presenter.interactor = resolver.resolve({{ prefix }}{{ module_info.name }}InteractorInput.self, argument: presenter as {{ prefix }}{{ module_info.name }}InteractorOutput)
+                if let transitionHandler = presenter.view as? TransitionHandler {
+                    presenter.router = resolver.resolve({{ prefix }}{{ module_info.name }}RouterInput.self, argument: transitionHandler)
+                }
+            }
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}InteractorInput.self) { (resolver, interactorOutput: {{ prefix }}{{ module_info.name }}InteractorOutput) in
+            let interactor = {{ prefix }}{{ module_info.name }}Interactor()
+            interactor.output = interactorOutput
+            return interactor
+        }
+        
+        container.register({{ custom_parameters.cell }}CellControllerFactory.self) { resolver in
+            return {{ custom_parameters.cell }}CellControllerFactoryImplementation()
+        }
+        
+        container.register({{ custom_parameters.cell }}CellViewModelDesigner.self) { resolver in
+            return {{ custom_parameters.cell }}CellViewModelDesignerImplementation()
+        }
+            
+        container.register({{ prefix }}{{ module_info.name }}ContentManager.self) { resolver in
+            let controllersFactory = resolver.resolve({{ custom_parameters.cell }}CellControllerFactory.self).unwrap()
+            let contentManager = {{ prefix }}{{ module_info.name }}ContentManagerImplementation(controllersFactory: controllersFactory)
+            return contentManager
+        }
+    }
+}

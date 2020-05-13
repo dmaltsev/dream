@@ -1,0 +1,52 @@
+# Template information section
+name: "incetro_viper"
+summary: "Swift VIPER module template with UIViewController playing as a View"
+author: "incetro"
+version: "0.1.1"
+license: "MIT"
+
+# The declarations for code files
+code_files:
+
+# Module
+
+- {name: Module/Module.swift, path: Code/Module/Module.swift.liquid}
+- {name: Module/ModuleInitializer.swift, path: Code/Module/ModuleInitializer.swift.liquid}
+
+# Assembly
+- {name: Assembly/Assembly.swift, path: Code/Assembly/Assembly.swift.liquid}
+
+# View layer
+- {name: View/ViewInput.swift, path: Code/View/ViewInput.swift.liquid}
+- {name: View/ViewOutput.swift, path: Code/View/ViewOutput.swift.liquid}
+- {name: View/ViewController.swift, path: Code/View/ViewController.swift.liquid}
+
+# Presenter
+- {name: Presenter/ModuleInput.swift, path: Code/Presenter/ModuleInput.swift.liquid}
+- {name: Presenter/Presenter.swift, path: Code/Presenter/Presenter.swift.liquid}
+
+# Interactor
+- {name: Interactor/InteractorInput.swift, path: Code/Interactor/InteractorInput.swift.liquid}
+- {name: Interactor/InteractorOutput.swift, path: Code/Interactor/InteractorOutput.swift.liquid}
+- {name: Interactor/Interactor.swift, path: Code/Interactor/Interactor.swift.liquid}
+
+# Router
+- {name: Router/RouterInput.swift, path: Code/Router/RouterInput.swift.liquid}
+- {name: Router/Router.swift, path: Code/Router/Router.swift.liquid}
+
+test_files:
+
+# Assembly tests
+- {name: Assembly/AssemblyTests.swift, path: Tests/Assembly/AssemblyTests.swift.liquid}
+
+# View tests
+- {name: View/ViewTests.swift, path: Tests/View/ViewTests.swift.liquid}
+
+# Interactor tests
+- {name: Interactor/InteractorTests.swift, path: Tests/Interactor/InteractorTests.swift.liquid}
+
+# Presenter tests
+- {name: Presenter/PresenterTests.swift, path: Tests/Presenter/PresenterTests.swift.liquid}
+
+# Router tests
+- {name: Router/RouterTests.swift, path: Tests/Router/RouterTests.swift.liquid}

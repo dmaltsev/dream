@@ -1,0 +1,13 @@
+{% include 'header' %}
+
+import Foundation
+
+// MARK: - {{ prefix }}{{ module_info.name }}ContentManager
+
+protocol {{ prefix }}{{ module_info.name }}ContentManager: ContentManager {
+    
+    /// Update table's data using some new viewModels
+    ///
+    /// - Parameter viewModels: new data
+    func updateData(_ viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol])
+}

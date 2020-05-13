@@ -1,0 +1,171 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}
+
+class {{ prefix }}{{ module_info.name }}: UnitTest {
+    
+    // MARK: - Properties
+    
+    private let view = {{ prefix }}{{ module_info.name }}ViewController()
+    private let output = {{ prefix }}{{ module_info.name }}PresenterMock()
+    private let contentManager = {{ prefix }}{{ module_info.name }}ContentManagerMock()
+    
+    // MARK: - Internal
+    
+    override func setUp() {
+        view.output = output
+        view.contentManager = contentManager
+        view.setupInitialState()
+    }
+    
+    // MARK: - Tests
+    
+    func testDidTriggerViewReadyEvent() {
+        
+        /// given
+        
+        output.invokedDidTriggerViewReadyEvent = false
+        
+        /// when
+        
+        view.viewDidLoad()
+        
+        /// then
+        
+        expect(self.output.invokedDidTriggerViewReadyEvent).to(beTrue())
+    }
+    
+    func testSetupInitialState() {
+        
+        /// given
+        
+        contentManager.invokedTableViewSetter = false
+        
+        /// when
+        
+        view.setupInitialState()
+        
+        /// then
+        
+        expect(self.contentManager.invokedConfigure).to(beTrue())
+        expect(self.contentManager.invokedConfigureParameters?.tableView).to(beIdenticalTo(view.tableView))
+    }
+    
+    func testUpdate() {
+        
+        /// given
+        
+        let viewModels = [
+            {{ custom_parameters.cell }}CellViewModel(),
+            {{ custom_parameters.cell }}CellViewModel(),
+            {{ custom_parameters.cell }}CellViewModel()
+        ]
+        
+        contentManager.invokedUpdateData = false
+        
+        /// when
+        
+        view.update(viewModels)
+        
+        /// then
+        
+        expect(self.contentManager.invokedUpdateData).to(beTrue())
+        expect(self.contentManager.invokedUpdateDataParameters?.viewModels as? [{{ custom_parameters.cell }}CellViewModel]).to(equal(viewModels))
+    }
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}PresenterMock
+    
+    class {{ prefix }}{{ module_info.name }}PresenterMock: {{ prefix }}{{ module_info.name }}ViewOutput {
+        
+        var invokedDidTriggerViewReadyEvent = false
+        var invokedDidTriggerViewReadyEventCount = 0
+        
+        func didTriggerViewReadyEvent() {
+            invokedDidTriggerViewReadyEvent = true
+            invokedDidTriggerViewReadyEventCount += 1
+        }
+    }
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}ContentManagerMock
+    
+    class {{ prefix }}{{ module_info.name }}ContentManagerMock: {{ prefix }}{{ module_info.name }}ContentManager {
+        
+        var invokedTableViewSetter = false
+        var invokedTableViewSetterCount = 0
+        var invokedTableView: UITableView?
+        var invokedTableViewList = [UITableView?]()
+        var invokedTableViewGetter = false
+        var invokedTableViewGetterCount = 0
+        var stubbedTableView: UITableView!
+        
+        var tableView: UITableView? {
+            set {
+                invokedTableViewSetter = true
+                invokedTableViewSetterCount += 1
+                invokedTableView = newValue
+                invokedTableViewList.append(newValue)
+            }
+            get {
+                invokedTableViewGetter = true
+                invokedTableViewGetterCount += 1
+                return stubbedTableView
+            }
+        }
+        
+        var invokedUpdateData = false
+        var invokedUpdateDataCount = 0
+        var invokedUpdateDataParameters: (viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol], Void)?
+        var invokedUpdateDataParametersList = [(viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol], Void)]()
+        
+        func updateData(_ viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol]) {
+            invokedUpdateData = true
+            invokedUpdateDataCount += 1
+            invokedUpdateDataParameters = (viewModels, ())
+            invokedUpdateDataParametersList.append((viewModels, ()))
+        }
+        
+        var invokedDataSource = false
+        var invokedDataSourceCount = 0
+        var invokedDataSourceParameters: (tableView: UITableView, Void)?
+        var invokedDataSourceParametersList = [(tableView: UITableView, Void)]()
+        var stubbedDataSourceResult: UITableViewDataSource!
+        
+        func dataSource(`for` tableView: UITableView) -> UITableViewDataSource {
+            invokedDataSource = true
+            invokedDataSourceCount += 1
+            invokedDataSourceParameters = (tableView, ())
+            invokedDataSourceParametersList.append((tableView, ()))
+            return stubbedDataSourceResult
+        }
+        
+        var invokedDelegate = false
+        var invokedDelegateCount = 0
+        var invokedDelegateParameters: (tableView: UITableView, Void)?
+        var invokedDelegateParametersList = [(tableView: UITableView, Void)]()
+        var stubbedDelegateResult: UITableViewDelegate!
+        
+        func delegate(`for` tableView: UITableView) -> UITableViewDelegate {
+            invokedDelegate = true
+            invokedDelegateCount += 1
+            invokedDelegateParameters = (tableView, ())
+            invokedDelegateParametersList.append((tableView, ()))
+            return stubbedDelegateResult
+        }
+        
+        var invokedConfigure = false
+        var invokedConfigureCount = 0
+        var invokedConfigureParameters: (tableView: UITableView, Void)?
+        var invokedConfigureParametersList = [(tableView: UITableView, Void)]()
+        
+        func configure(withTableView tableView: UITableView) {
+            invokedConfigure = true
+            invokedConfigureCount += 1
+            invokedConfigureParameters = (tableView, ())
+            invokedConfigureParametersList.append((tableView, ()))
+        }
+    }
+}

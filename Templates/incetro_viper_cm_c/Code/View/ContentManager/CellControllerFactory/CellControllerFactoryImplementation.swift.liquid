@@ -1,0 +1,19 @@
+{% include 'header' %}
+
+import Foundation
+
+// MARK: - {{ custom_parameters.cell }}CellControllerFactoryImplementation
+
+class {{ custom_parameters.cell }}CellControllerFactoryImplementation {
+
+}
+
+// MARK: - {{ custom_parameters.cell }}CellControllerFactory
+
+extension {{ custom_parameters.cell }}CellControllerFactoryImplementation: {{ custom_parameters.cell }}CellControllerFactory {
+
+    func controller(with viewModel: {{ custom_parameters.cell }}CellViewModelProtocol, tableView: UITableView) -> {{ custom_parameters.cell }}CellController {
+        {{ custom_parameters.cell }}CellController.registerCell(on: tableView)
+        return {{ custom_parameters.cell }}CellController(viewModel: viewModel)
+    }
+}

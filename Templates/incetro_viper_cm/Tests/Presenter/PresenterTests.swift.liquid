@@ -1,0 +1,173 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - EmployeeSettingsPresenterTests
+
+class {{ prefix }}{{ module_info.name }}PresenterTests: UnitTest {
+    
+    // MARK: - Properties
+    
+    private lazy var presenter = {{ prefix }}{{ module_info.name }}Presenter({{ custom_parameters.cell | downcase }}CellViewModelDesigner: self.{{ custom_parameters.cell | downcase }}CellViewModelDesigner)
+    private let {{ custom_parameters.cell | downcase }}CellViewModelDesigner = {{ custom_parameters.cell }}CellViewModelDesignerMock()
+    private let interactor = {{ prefix }}{{ module_info.name }}InteractorMock()
+    private let router = {{ prefix }}{{ module_info.name }}RouterMock()
+    private let view = {{ prefix }}{{ module_info.name }}ViewMock()
+    
+    // MARK: - Internal
+    
+    override func setUp() {
+        super.setUp()
+        presenter.view = view
+        presenter.router = router
+        presenter.interactor = interactor
+    }
+    
+    // MARK: - Tests
+    
+    func testDidTriggerViewReadyEvent() {
+        
+        /// given
+        
+        view.invokedSetupInitialState = false
+        
+        /// when
+        
+        presenter.didTriggerViewReadyEvent()
+        
+        /// then
+        
+        expect(self.view.invokedSetupInitialState).to(beTrue())
+    }
+    
+    func testProcessErrorMessage() {
+        
+        /// given
+        
+        let errorMessage = "errorMessage"
+        
+        view.invokedStopIndication = false
+        view.invokedShowMessage = false
+        view.invokedShowErrorMessageParameters = nil
+        
+        /// when
+        
+        presenter.processErrorMessage(errorMessage)
+        
+        /// then
+        
+        expect(self.view.invokedStopIndication).to(beTrue())
+        expect(self.view.invokedShowErrorMessage).to(beTrue())
+        expect(self.view.invokedShowErrorMessageParameters?.errorMessage).to(equal(errorMessage))
+    }
+    
+    // MARK: - SpecializationCellViewModelDesignerMock
+    
+    class {{ custom_parameters.cell }}CellViewModelDesignerMock: {{ custom_parameters.cell }}CellViewModelDesigner {
+
+
+    }
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}ViewMock
+    
+    class {{ prefix }}{{ module_info.name }}ViewMock: {{ prefix }}{{ module_info.name }}ViewInput {
+
+        var invokedUpdate = false
+        var invokedUpdateCount = 0
+        var invokedUpdateParameters: (viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol], Void)?
+        var invokedUpdateParametersList = [(viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol], Void)]()
+
+        func update(_ viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol]) {
+            invokedUpdate = true
+            invokedUpdateCount += 1
+            invokedUpdateParameters = (viewModels, ())
+            invokedUpdateParametersList.append((viewModels, ()))
+        }
+
+        var invokedSetupInitialState = false
+        var invokedSetupInitialStateCount = 0
+        
+        func setupInitialState() {
+            invokedSetupInitialState = true
+            invokedSetupInitialStateCount += 1
+        }
+        
+        var invokedStartIndication = false
+        var invokedStartIndicationCount = 0
+        
+        func startIndication() {
+            invokedStartIndication = true
+            invokedStartIndicationCount += 1
+        }
+        
+        var invokedStopIndication = false
+        var invokedStopIndicationCount = 0
+        
+        func stopIndication() {
+            invokedStopIndication = true
+            invokedStopIndicationCount += 1
+        }
+        
+        var invokedShowSuccess = false
+        var invokedShowSuccessCount = 0
+        
+        func showSuccess() {
+            invokedShowSuccess = true
+            invokedShowSuccessCount += 1
+        }
+        
+        var invokedShowMessage = false
+        var invokedShowMessageCount = 0
+        var invokedShowMessageParameters: (message: String, Void)?
+        var invokedShowMessageParametersList = [(message: String, Void)]()
+        
+        func showMessage(_ message: String) {
+            invokedShowMessage = true
+            invokedShowMessageCount += 1
+            invokedShowMessageParameters = (message, ())
+            invokedShowMessageParametersList.append((message, ()))
+        }
+        
+        var invokedShowErrorMessage = false
+        var invokedShowErrorMessageCount = 0
+        var invokedShowErrorMessageParameters: (errorMessage: String, Void)?
+        var invokedShowErrorMessageParametersList = [(errorMessage: String, Void)]()
+        
+        func showErrorMessage(_ errorMessage: String) {
+            invokedShowErrorMessage = true
+            invokedShowErrorMessageCount += 1
+            invokedShowErrorMessageParameters = (errorMessage, ())
+            invokedShowErrorMessageParametersList.append((errorMessage, ()))
+        }
+        
+        var invokedShowError = false
+        var invokedShowErrorCount = 0
+        
+        func showError() {
+            invokedShowError = true
+            invokedShowErrorCount += 1
+        }
+    }
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}InteractorMock
+    
+    class {{ prefix }}{{ module_info.name }}InteractorMock: {{ prefix }}{{ module_info.name }}InteractorInput {
+        
+
+    }
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}RouterMock
+    
+    class {{ prefix }}{{ module_info.name }}RouterMock: {{ prefix }}{{ module_info.name }}RouterInput {
+
+        var invokedClose = false
+        var invokedCloseCount = 0
+
+        func close() {
+            invokedClose = true
+            invokedCloseCount += 1
+        }
+    }
+}

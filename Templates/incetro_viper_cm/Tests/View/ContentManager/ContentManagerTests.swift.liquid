@@ -1,0 +1,37 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}ContentManagerTests
+
+class {{ prefix }}{{ module_info.name }}ContentManagerTests: UnitTest {
+    
+    // MARK: - Properties
+
+    private lazy var contentManager = {{ prefix }}{{ module_info.name }}ContentManagerImplementation()
+    
+    // MARK: - Tests
+    
+    func testUpdateData() {
+        
+        /// given
+
+        let tableView = UITableView()
+        let viewModels = [
+            {{ custom_parameters.cell }}CellViewModel(),
+            {{ custom_parameters.cell }}CellViewModel(),
+            {{ custom_parameters.cell }}CellViewModel()
+        ]
+        
+        /// when
+        
+        contentManager.configure(withTableView: tableView)
+        contentManager.updateData(viewModels)
+        
+        /// then
+        
+        expect(self.conentManager.dataSource(for: tableView).tableView(tableView, numberOfRowsInSection: 0)).to(equal(viewModels.count))
+    }
+}

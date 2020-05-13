@@ -1,0 +1,9 @@
+{% include 'header' %}
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewInput
+
+protocol {{ prefix }}{{ module_info.name }}ViewInput: class, ViewInput {
+    
+    /// Setup initial view state
+    func setupInitialState()
+}

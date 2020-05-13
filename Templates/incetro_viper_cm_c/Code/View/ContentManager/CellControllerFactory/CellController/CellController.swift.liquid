@@ -1,0 +1,28 @@
+{% include 'header' %}
+
+import Foundation
+
+// MARK: - {{ custom_parameters.cell }}CellController
+
+class {{ custom_parameters.cell }}CellController: GenericCellController<{{ custom_parameters.cell }}Cell> {
+    
+    // MARK: - Properties
+    
+    /// ViewModel instance
+    private let viewModel: {{ custom_parameters.cell }}CellViewModelProtocol
+    
+    // MARK: - Initializers
+
+    /// Default initializer
+    ///
+    /// - Parameter viewModel: ViewModel instance
+    init(viewModel: {{ custom_parameters.cell }}CellViewModelProtocol) {
+        self.viewModel = viewModel
+    }
+    
+    // MARK: - CellController
+    
+    override func configureCell(_ cell: {{ custom_parameters.cell }}Cell) {
+        cell.setup(with: viewModel)
+    }
+}

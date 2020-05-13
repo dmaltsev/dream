@@ -1,0 +1,58 @@
+{% include 'header' %}
+
+import UIKit
+import Swinject
+
+class {{ prefix }}{{ module_info.name }}ModuleAssembly: CollectableAssembly {
+
+    // MARK: - Initializers
+    
+    required init() {
+
+    }
+
+    // MARK: - Useful
+
+    func obtainViewController() -> {{ prefix }}{{ module_info.name }}ViewController {
+        return unwrap(container.resolve({{ prefix }}{{ module_info.name }}ViewController.self))
+    }
+    
+    func configureModuleForViewInput(viewInput: {{ prefix }}{{ module_info.name }}ViewController) {
+        viewInput.output = container.resolve({{ prefix }}{{ module_info.name }}ViewOutput.self, argument: viewInput as {{ prefix }}{{ module_info.name }}ViewInput)
+    }
+    
+    // MARK: - Assembly
+    
+    func assemble(inContainer container: Container) {
+
+        container.register({{ prefix }}{{ module_info.name }}ViewController.self) { resolver in
+            let controller = {{ prefix }}{{ module_info.name }}ViewController()
+            controller.output = resolver.resolve({{ prefix }}{{ module_info.name }}ViewOutput.self, argument: controller as {{ prefix }}{{ module_info.name }}ViewInput)
+            return controller
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}RouterInput.self) { (resolver, transitionHandler: TransitionHandler) in
+            let router = {{ prefix }}{{ module_info.name }}Router(transitionHandler: transitionHandler)    
+            return router
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}ViewOutput.self) { (resolver, view: {{ prefix }}{{ module_info.name }}ViewInput) in
+            let presenter = {{ prefix }}{{ module_info.name }}Presenter()
+            presenter.view = view
+            return presenter
+        }.initCompleted { (resolver, viewOutput) in
+            if let presenter = viewOutput as? {{ prefix }}{{ module_info.name }}Presenter {
+                presenter.interactor = resolver.resolve({{ prefix }}{{ module_info.name }}InteractorInput.self, argument: presenter as {{ prefix }}{{ module_info.name }}InteractorOutput)
+                if let transitionHandler = presenter.view as? TransitionHandler {
+                    presenter.router = resolver.resolve({{ prefix }}{{ module_info.name }}RouterInput.self, argument: transitionHandler)
+                }
+            }
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}InteractorInput.self) { (resolver, interactorOutput: {{ prefix }}{{ module_info.name }}InteractorOutput) in
+            let interactor = {{ prefix }}{{ module_info.name }}Interactor()
+            interactor.output = interactorOutput
+            return interactor
+        }
+    }
+}

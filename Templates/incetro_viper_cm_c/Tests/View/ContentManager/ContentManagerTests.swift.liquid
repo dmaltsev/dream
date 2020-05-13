@@ -1,0 +1,65 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}ContentManagerTests
+
+class {{ prefix }}{{ module_info.name }}ContentManagerTests: UnitTest {
+    
+    // MARK: - Properties
+
+    private let controllersFactory = {{ custom_parameters.cell }}CellControllerFactoryMock()
+    private lazy var contentManager: {{ prefix }}{{ module_info.name }}ContentManager = {
+        return self.container.resolve({{ prefix }}{{ module_info.name }}ContentManager.self, argument: self.controllersFactory as {{ custom_parameters.cell }}CellControllerFactory).unwrap()
+    }()
+    
+    // MARK: - Tests
+    
+    func testUpdateData() {
+        
+        /// given
+
+        let tableView = UITableView()
+        controllersFactory.invokedController = false
+        controllersFactory.invokedControllerCount = 0
+        let viewModels = [
+            {{ custom_parameters.cell }}CellViewModel(),
+            {{ custom_parameters.cell }}CellViewModel(),
+            {{ custom_parameters.cell }}CellViewModel()
+        ]
+        controllersFactory.stubbedControllerResult = {{ custom_parameters.cell }}CellController(viewModel: viewModels[0])
+        
+        /// when
+        
+        conentManager.configure(withTableView: tableView)
+        conentManager.updateData(viewModels)
+        
+        /// then
+        
+        expect(self.controllersFactory.invokedController).to(beTrue())
+        expect(self.controllersFactory.invokedControllerCount).to(equal(viewModels.count))
+        expect(self.contentManager.dataSource(for: tableView).tableView(tableView, numberOfRowsInSection: 0)).to(equal(viewModels.count))
+        expect(self.controllersFactory.invokedControllerParameters?.tableView).to(beIdenticalTo(tableView))
+    }
+    
+    // MARK: - {{ custom_parameters.cell }}CellControllerFactoryMock
+    
+    class {{ custom_parameters.cell }}CellControllerFactoryMock: {{ custom_parameters.cell }}CellControllerFactory {
+        
+        var invokedController = false
+        var invokedControllerCount = 0
+        var invokedControllerParameters: (viewModel: {{ custom_parameters.cell }}CellViewModelProtocol, tableView: UITableView)?
+        var invokedControllerParametersList = [(viewModel: {{ custom_parameters.cell }}CellViewModelProtocol, tableView: UITableView)]()
+        var stubbedControllerResult: {{ custom_parameters.cell }}CellController!
+        
+        func controller(with viewModel: {{ custom_parameters.cell }}CellViewModelProtocol, tableView: UITableView) -> {{ custom_parameters.cell }}CellController {
+            invokedController = true
+            invokedControllerCount += 1
+            invokedControllerParameters = (viewModel, tableView)
+            invokedControllerParametersList.append((viewModel, tableView))
+            return stubbedControllerResult
+        }
+    }
+}

@@ -1,0 +1,33 @@
+{% include 'header' %}
+
+import UIKit
+
+// MARK: - {{ custom_parameters.cell }}CellControllerFactory
+
+protocol {{ custom_parameters.cell }}CellControllerFactory {
+    
+    /// Create {{ custom_parameters.cell }}CellController instance using some
+    /// viewModel and register it to the given tableView
+    ///
+    /// - Parameters:
+    ///   - viewModel: viewModel instance for cell's configuration
+    ///   - tableView: tableView for registering cell
+    /// - Returns: {{ custom_parameters.cell }}CellController instance
+    func controller(with viewModel: {{ custom_parameters.cell }}CellViewModelProtocol, tableView: UITableView) -> {{ custom_parameters.cell }}CellController
+}
+
+extension {{ custom_parameters.cell }}CellControllerFactory {
+
+    /// Create {{ custom_parameters.cell }}CellController array using some
+    /// viewModels and register it to the given tableView
+    ///
+    /// - Parameters:
+    ///   - viewModels: viewModels instances for cells configuration
+    ///   - tableView: tableView for registering cells
+    /// - Returns: {{ custom_parameters.cell }}CellController array
+    func controllers(with viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol], tableView: UITableView) -> [{{ custom_parameters.cell }}CellController] {
+        return viewModels.map {
+            controller(with: $0, tableView: tableView)
+        }
+    }
+}

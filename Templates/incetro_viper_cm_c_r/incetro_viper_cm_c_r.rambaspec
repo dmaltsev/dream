@@ -1,0 +1,52 @@
+# Template information section
+name: "incetro_viper_cm_c_r"
+summary: "Swift VIPER module template with UIViewController playing as a View and with CellController approach"
+author: "incetro"
+version: "0.0.1"
+license: "MIT"
+
+# The declarations for code files
+code_files:
+
+# Module
+
+- {name: Module/Module.swift, path: Code/Module/Module.swift.liquid}
+- {name: Module/ModuleInitializer.swift, path: Code/Module/ModuleInitializer.swift.liquid}
+
+# Assembly
+- {name: Assembly/Assembly.swift, path: Code/Assembly/Assembly.swift.liquid}
+
+# View layer
+- {name: View/ContentManager/ContentManager.swift, path: Code/View/ContentManager/ContentManager.swift.liquid}
+- {name: View/ContentManager/ContentManagerImplementation.swift, path: Code/View/ContentManager/ContentManagerImplementation.swift.liquid}
+
+- {name: View/ViewInput.swift, path: Code/View/ViewInput.swift.liquid}
+- {name: View/ViewOutput.swift, path: Code/View/ViewOutput.swift.liquid}
+- {name: View/ViewController.swift, path: Code/View/ViewController.swift.liquid}
+
+- {name: View/ContentManager/{{ custom_parameters.cell }}CellControllerFactory/{{ custom_parameters.cell }}CellController/CellController.swift, custom_name: "{{ custom_parameters.cell }}CellController.swift", path: Code/View/ContentManager/CellControllerFactory/CellController/CellController.swift.liquid}
+
+- {name: View/ContentManager/{{ custom_parameters.cell }}CellControllerFactory/{{ custom_parameters.cell }}CellController/{{ custom_parameters.cell }}Cell/Cell.swift, custom_name: "{{ custom_parameters.cell }}Cell.swift", path: Code/View/ContentManager/CellControllerFactory/CellController/Cell/Cell.swift.liquid}
+
+- {name: View/ContentManager/{{ custom_parameters.cell }}CellControllerFactory/{{ custom_parameters.cell }}CellController/{{ custom_parameters.cell }}Cell/{{ custom_parameters.cell }}CellViewModel/CellViewModelProtocol.swift, custom_name: "{{ custom_parameters.cell }}CellViewModelProtocol.swift", path: Code/View/ContentManager/CellControllerFactory/CellController/Cell/CellViewModel/CellViewModelProtocol.swift.liquid}
+
+- {name: View/ContentManager/{{ custom_parameters.cell }}CellControllerFactory/{{ custom_parameters.cell }}CellController/{{ custom_parameters.cell }}Cell/{{ custom_parameters.cell }}CellViewModel/CellViewModel.swift, custom_name: "{{ custom_parameters.cell }}CellViewModel.swift", path: Code/View/ContentManager/CellControllerFactory/CellController/Cell/CellViewModel/CellViewModel.swift.liquid}
+
+- {name: View/ContentManager/{{ custom_parameters.cell }}CellControllerFactory/CellControllerFactory.swift, custom_name: "{{ custom_parameters.cell }}CellControllerFactory.swift", path: Code/View/ContentManager/CellControllerFactory/CellControllerFactory.swift.liquid}
+- {name: View/ContentManager/{{ custom_parameters.cell }}CellControllerFactory/CellControllerFactoryImplementation.swift, custom_name: "{{ custom_parameters.cell }}CellControllerFactoryImplementation.swift", path: Code/View/ContentManager/CellControllerFactory/CellControllerFactoryImplementation.swift.liquid}
+
+
+# Presenter
+- {name: Presenter/ModuleInput.swift, path: Code/Presenter/ModuleInput.swift.liquid}
+- {name: Presenter/Presenter.swift, path: Code/Presenter/Presenter.swift.liquid}
+- {name: Presenter/{{ custom_parameters.cell }}CellViewModelDesigner/CellViewModelDesigner.swift, path: Code/Presenter/CellViewModelDesigner/CellViewModelDesigner.swift.liquid}
+- {name: Presenter/{{ custom_parameters.cell }}CellViewModelDesigner/CellViewModelDesignerImplementation.swift, path: Code/Presenter/CellViewModelDesigner/CellViewModelDesignerImplementation.swift.liquid}
+
+# Interactor
+- {name: Interactor/InteractorInput.swift, path: Code/Interactor/InteractorInput.swift.liquid}
+- {name: Interactor/InteractorOutput.swift, path: Code/Interactor/InteractorOutput.swift.liquid}
+- {name: Interactor/Interactor.swift, path: Code/Interactor/Interactor.swift.liquid}
+
+# Router
+- {name: Router/RouterInput.swift, path: Code/Router/RouterInput.swift.liquid}
+- {name: Router/Router.swift, path: Code/Router/Router.swift.liquid}

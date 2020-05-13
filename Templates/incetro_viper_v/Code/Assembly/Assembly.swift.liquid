@@ -1,0 +1,40 @@
+{% include 'header' %}
+
+import UIKit
+import Swinject
+
+// MARK: - {{ prefix }}{{ module_info.name }}ModuleAssembly
+
+class {{ prefix }}{{ module_info.name }}ModuleAssembly: CollectableAssembly {
+
+    required init() {
+
+    }
+
+    // MARK: - Assembly
+    
+    func assemble(inContainer container: Container) {
+
+        container.register({{ prefix }}{{ module_info.name }}View.self) { resolver in
+            let view = {{ prefix }}{{ module_info.name }}View()
+            view.output = resolver.resolve({{ prefix }}{{ module_info.name }}ViewOutput.self, argument: view as {{ prefix }}{{ module_info.name }}ViewInput)
+            return view
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}ViewOutput.self) { (resolver, view: {{ prefix }}{{ module_info.name }}ViewInput) in
+            let presenter = {{ prefix }}{{ module_info.name }}Presenter()
+            presenter.view = view
+            return presenter
+        }.initCompleted { (resolver, viewOutput) in
+            if let presenter = viewOutput as? {{ prefix }}{{ module_info.name }}Presenter {   
+                presenter.interactor = resolver.resolve({{ prefix }}{{ module_info.name }}InteractorInput.self, argument: presenter as {{ prefix }}{{ module_info.name }}InteractorOutput)
+            }
+        }
+        
+        container.register({{ prefix }}{{ module_info.name }}InteractorInput.self) { (resolver, interactorOutput: {{ prefix }}{{ module_info.name }}InteractorOutput) in
+            let interactor = {{ prefix }}{{ module_info.name }}Interactor()
+            interactor.output = interactorOutput
+            return interactor
+        }
+    }
+}

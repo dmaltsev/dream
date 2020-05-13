@@ -1,0 +1,60 @@
+{% include 'header' %}
+
+import UIKit
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewController
+
+class {{ prefix }}{{ module_info.name }}ViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    /// Table with {{ custom_parameters.cell }} cells
+    fileprivate let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+
+    /// Presenter instance
+    var output: {{ prefix }}{{ module_info.name }}ViewOutput?
+
+    /// {{ prefix }}{{ module_info.name }} content manager
+    var contentManager: {{ prefix }}{{ module_info.name }}ContentManager?
+    
+    // MARK: - ViewController
+
+    override func viewDidLoad() {
+    	super.viewDidLoad()
+        output?.didTriggerViewReadyEvent()
+    }
+
+    // MARK: - Private
+
+    /// Cards table view setup
+    fileprivate func setupTableView() {
+        view.addSubview(tableView.prepareForAutolayout())
+        tableView.pinToSuperview(withOffset: 0)
+        contentManager?.configure(withTableView: tableView)
+    }
+}
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewInput
+
+extension {{ prefix }}{{ module_info.name }}ViewController: {{ prefix }}{{ module_info.name }}ViewInput {
+    
+    func setupInitialState() {   
+        setupTableView()
+    }
+    
+    func update(_ viewModels: [{{ custom_parameters.cell }}CellViewModelProtocol]) {
+        contentManager?.updateData(viewModels)
+    }
+}
+
+// MARK: - ViperViewOutputProvider
+
+extension {{ prefix }}{{ module_info.name }}ViewController: ViewOutputProvider {
+    var viewOutput: ModuleInput? {
+        return self.output as? ModuleInput
+    }
+}

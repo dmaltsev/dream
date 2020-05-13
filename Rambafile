@@ -1,0 +1,24 @@
+### Headers settings
+company: Мечтару
+
+### Xcode project settings
+project_name: Dream
+xcodeproj_path: Dream.xcodeproj
+
+### Code generation settings section
+# The main project target name
+project_target: Dream
+
+### Dependencies settings section
+podfile_path: Podfile
+
+### Templates
+catalogs:
+- 'https://github.com/incetro/GenerambaTemplates'
+templates:
+- {name: incetro_viper}
+- {name: incetro_viper_cm}
+- {name: incetro_viper_cm_c}
+- {name: incetro_viper_cm_c_r}
+- {name: incetro_viper_v}
+- {name: incetro_viper_v_r}

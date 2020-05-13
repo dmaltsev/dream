@@ -1,0 +1,42 @@
+{% include 'header' %}
+
+@testable
+import {{ custom_parameters.target_name }}
+import Nimble
+
+// MARK: - {{ prefix }}{{ module_info.name }}InteractorTests
+
+class {{ prefix }}{{ module_info.name }}InteractorTests: UnitTest {
+    
+    // MARK: - Properties
+    
+    private let output = {{ prefix }}{{ module_info.name }}InteractorOutputMock()
+
+    // MARK: - Internal
+    
+    override func setUp() {
+        super.setUp()
+
+    }
+    
+    // MARK: - Tests
+   
+    
+    
+    // MARK: - {{ prefix }}{{ module_info.name }}InteractorOutputMock
+    
+    class {{ prefix }}{{ module_info.name }}InteractorOutputMock: {{ prefix }}{{ module_info.name }}InteractorOutput {
+        
+        var invokedProcessErrorMessage = false
+        var invokedProcessErrorMessageCount = 0
+        var invokedProcessErrorMessageParameters: (errorMessage: String, Void)?
+        var invokedProcessErrorMessageParametersList = [(errorMessage: String, Void)]()
+        
+        func processErrorMessage(_ errorMessage: String) {
+            invokedProcessErrorMessage = true
+            invokedProcessErrorMessageCount += 1
+            invokedProcessErrorMessageParameters = (errorMessage, ())
+            invokedProcessErrorMessageParametersList.append((errorMessage, ()))
+        }
+    }
+}

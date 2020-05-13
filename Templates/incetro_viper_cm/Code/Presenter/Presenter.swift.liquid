@@ -1,0 +1,45 @@
+{% include 'header' %}
+
+import Foundation
+
+// MARK: - {{ prefix }}{{ module_info.name }}Presenter
+
+class {{ prefix }}{{ module_info.name }}Presenter {
+    
+    // MARK: - Properties
+    
+    /// View instance
+    weak var view: {{ prefix }}{{ module_info.name }}ViewInput?
+
+    /// Interactor instance
+    var interactor: {{ prefix }}{{ module_info.name }}InteractorInput?
+
+    /// Router instance
+    var router: {{ prefix }}{{ module_info.name }}RouterInput?
+}
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewOutput
+
+extension {{ prefix }}{{ module_info.name }}Presenter: {{ prefix }}{{ module_info.name }}ViewOutput {
+    
+    func didTriggerViewReadyEvent() {
+        view?.setupInitialState()
+    }
+}
+
+// MARK: - {{ prefix }}{{ module_info.name }}InteractorOutput
+
+extension {{ prefix }}{{ module_info.name }}Presenter: {{ prefix }}{{ module_info.name }}InteractorOutput {
+    
+    func processErrorMessage(_ errorMessage: String) {
+        view?.stopIndication()
+        view?.showErrorMessage(errorMessage)
+    }
+}
+
+// MARK: - {{ prefix }}{{ module_info.name }}ModuleInput
+
+extension {{ prefix }}{{ module_info.name }}Presenter: {{ prefix }}{{ module_info.name }}ModuleInput {
+    
+    
+}

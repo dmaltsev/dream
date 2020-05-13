@@ -1,0 +1,30 @@
+# Template information section
+name: "incetro_viper_uiview_with_router"
+summary: "Swift VIPER module template with UIView playing as a View"
+author: "incetro"
+version: "0.1.1"
+license: "MIT"
+
+# The declarations for code files
+code_files:
+
+# Assembly
+- {name: Assembly/Assembly.swift, path: Code/Assembly/Assembly.swift.liquid}
+
+# View layer
+- {name: View/ViewInput.swift, path: Code/View/ViewInput.swift.liquid}
+- {name: View/ViewOutput.swift, path: Code/View/ViewOutput.swift.liquid}
+- {name: View/View.swift, path: Code/View/View.swift.liquid}
+
+# Presenter
+- {name: Presenter/ModuleInput.swift, path: Code/Presenter/ModuleInput.swift.liquid}
+- {name: Presenter/Presenter.swift, path: Code/Presenter/Presenter.swift.liquid}
+
+# Interactor
+- {name: Interactor/InteractorInput.swift, path: Code/Interactor/InteractorInput.swift.liquid}
+- {name: Interactor/InteractorOutput.swift, path: Code/Interactor/InteractorOutput.swift.liquid}
+- {name: Interactor/Interactor.swift, path: Code/Interactor/Interactor.swift.liquid}
+
+# Router
+- {name: Router/RouterInput.swift, path: Code/Router/RouterInput.swift.liquid}
+- {name: Router/Router.swift, path: Code/Router/Router.swift.liquid}

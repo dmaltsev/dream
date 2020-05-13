@@ -1,0 +1,55 @@
+{% include 'header' %}
+
+import UIKit
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewController
+
+class {{ prefix }}{{ module_info.name }}ViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    /// Table with NAME
+    fileprivate let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+
+    /// Presenter instance
+    var output: {{ prefix }}{{ module_info.name }}ViewOutput?
+
+    /// NAME content manager
+    var contentManager: {{ prefix }}{{ module_info.name }}ContentManager?
+    
+    // MARK: - ViewController
+
+    override func viewDidLoad() {
+    	super.viewDidLoad()
+        output?.didTriggerViewReadyEvent()
+    }
+
+    // MARK: - Private
+
+    /// Cards table view setup
+    fileprivate func setupTableView() {
+        view.addSubview(tableView.prepareForAutolayout())
+        tableView.pinToSuperview(withOffset: 0)
+    }
+}
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewInput
+
+extension {{ prefix }}{{ module_info.name }}ViewController: {{ prefix }}{{ module_info.name }}ViewInput {
+    
+    func setupInitialState() {   
+        self.setupTableView()
+    }
+}
+
+// MARK: - ViperViewOutputProvider
+
+extension {{ prefix }}{{ module_info.name }}ViewController: ViewOutputProvider {
+    var viewOutput: ModuleInput? {
+        return self.output as? ModuleInput
+    }
+}

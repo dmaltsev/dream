@@ -1,0 +1,39 @@
+{% include 'header' %}
+
+import UIKit
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewController
+
+class {{ prefix }}{{ module_info.name }}ViewController: UIViewController {
+    
+    // MARK: - Properties
+
+    /// Presenter instance
+    var output: {{ prefix }}{{ module_info.name }}ViewOutput?
+    
+    // MARK: - ViewController
+
+    override func viewDidLoad() {
+    	super.viewDidLoad()
+        output?.didTriggerViewReadyEvent()
+    }
+
+    // MARK: - Private
+}
+
+// MARK: - {{ prefix }}{{ module_info.name }}ViewInput
+
+extension {{ prefix }}{{ module_info.name }}ViewController: {{ prefix }}{{ module_info.name }}ViewInput {
+    
+    func setupInitialState() {   
+
+    }
+}
+
+// MARK: - ViperViewOutputProvider
+
+extension {{ prefix }}{{ module_info.name }}ViewController: ViewOutputProvider {
+    var viewOutput: ModuleInput? {
+        return self.output as? ModuleInput
+    }
+}
