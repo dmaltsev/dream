@@ -14,6 +14,8 @@ import Mapbox
 
 class Path {
     
+    typealias WaypointTurn = (heading: Int, turnMode: DJIWaypointTurnMode)
+    
     private let points: [CLLocationCoordinate2D]
     private let boundingBox: BoundingBox
     
@@ -220,7 +222,6 @@ class Path {
         return DJIWaypointMission(mission: mission)
     }
     
-    typealias WaypointTurn = (heading: Int, turnMode: DJIWaypointTurnMode)
     private func makeWaypoint(withCoordinate coordinate: CLLocationCoordinate2D,
                               height: Float,
                               speed: Float,
