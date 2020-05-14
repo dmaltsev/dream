@@ -207,6 +207,7 @@
 		92AFB180243481BF0093AD60 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AFB17F243481BF0093AD60 /* CommentService.swift */; };
 		92AFB182243481D20093AD60 /* CommentServiceImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AFB181243481D20093AD60 /* CommentServiceImplementation.swift */; };
 		92AFB1842434853D0093AD60 /* CommentPlainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AFB1832434853D0093AD60 /* CommentPlainObject.swift */; };
+		92B299E4246D9DFE00A2BFFC /* PathBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B299E3246D9DFE00A2BFFC /* PathBuilder.swift */; };
 		93C3C5009F370814F722EE5C /* MenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47436A64F77DD20ECA5B1CCF /* MenuModule.swift */; };
 		A334716A4B9B2A4A963086F9 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEA4F84FDABA6D1A1DB6841 /* MainPresenter.swift */; };
 		A38B0B7510C2536C1E4ACE6D /* NewRequestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD967B699AC2D1F053834DDF /* NewRequestModule.swift */; };
@@ -469,6 +470,7 @@
 		92AFB17F243481BF0093AD60 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		92AFB181243481D20093AD60 /* CommentServiceImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServiceImplementation.swift; sourceTree = "<group>"; };
 		92AFB1832434853D0093AD60 /* CommentPlainObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPlainObject.swift; sourceTree = "<group>"; };
+		92B299E3246D9DFE00A2BFFC /* PathBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathBuilder.swift; sourceTree = "<group>"; };
 		9365E4DF79EAA096D818893A /* MenuCellViewModelProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuCellViewModelProtocol.swift; sourceTree = "<group>"; };
 		9819F529B73649A1E3A2201C /* CommentsContentManagerImplementation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CommentsContentManagerImplementation.swift; sourceTree = "<group>"; };
 		9AA27931B449D978DD7901AE /* NewRequestModuleInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NewRequestModuleInitializer.swift; sourceTree = "<group>"; };
@@ -981,6 +983,7 @@
 				924ADE282360F7BF003DBA28 /* Common */,
 				924ADD682360F02C003DBA28 /* Core */,
 				92058D7A234BFB1C00816BB2 /* Presentation */,
+				92B299E3246D9DFE00A2BFFC /* PathBuilder.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -2226,6 +2229,7 @@
 				D6AEC2EE6F97A083152F7B27 /* MenuContentManager.swift in Sources */,
 				51EE252CD757C123AE6FB6CA /* MenuContentManagerImplementation.swift in Sources */,
 				A82906540633D11AE7D677E8 /* MenuViewInput.swift in Sources */,
+				92B299E4246D9DFE00A2BFFC /* PathBuilder.swift in Sources */,
 				B4E5A8D986661F9AE6CCF041 /* MenuViewOutput.swift in Sources */,
 				E294E29006903B4ABB3EBD19 /* MenuViewController.swift in Sources */,
 				712BA4DF5A38D414EF8F97FD /* MenuCellController.swift in Sources */,
