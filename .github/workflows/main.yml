@@ -16,13 +16,13 @@ jobs:
         with:
           ref: develop
       
-      - name: Pushes to another repository
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: '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'
-        with:
-          source-directory: 'output'
-          destination-github-username: 'dmaltsev'
-          destination-repository-name: 'gh-page-test'
-          user-email: demaltsev@gmail.com
-          target-branch: main
+      - name: Push new files into repo
+        with: |
+          mkdir newData && cd newData
+          git clone https://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@github.com/dmaltsev/gh-page-test.git
+          rm -rf ./
+          touch index.html
+          echo "<h1>Hello world</h1>" > index.html
+          git add .
+          git commit -m "Update"
+          git push
