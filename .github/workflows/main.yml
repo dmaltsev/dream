@@ -18,9 +18,9 @@ jobs:
       
       - name: Push new files into repo
         run: |
+          git config credential.helper '!f(){echo username=token; echo "password=${{ secrets.API_TOKEN }}";};f'
           cd ../
           mkdir newData && cd newData
-          git config credential.helper '!f(){echo username=token; echo "password=${{ secrets.API_TOKEN }}";};f'
           git clone https://${{ secrets.API_TOKEN }}@github.com/dmaltsev/gh-page-test.git
           cd gh-page-test
           touch index.html
