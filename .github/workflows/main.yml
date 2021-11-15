@@ -33,7 +33,7 @@ jobs:
           
       - name: Copy
         run: |
-          cp $GITHUB_WORKSPACE/index.html ./
+          cp $GITHUB_WORKSPACE/index.html ~/ikura/results
 
           
 
