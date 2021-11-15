@@ -19,7 +19,7 @@ jobs:
           
       - name: Navigate to project
         run: |
-          cd ~/project
+          cd ~/ikura/project
           
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,7 +28,7 @@ jobs:
           
       - name: Navigate to results
         run: |
-          cd ~/results   
+          cd ~/ikura/results   
           
       - name: Checkout
         uses: actions/checkout@v2
