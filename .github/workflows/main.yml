@@ -31,12 +31,8 @@ jobs:
           cd ~/ikura/results   
           
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: dmaltsev/gh-page-test
-          ref: main      
-          uses: actions/checkout@v1
-          token: ${{ secrets.API_TOKEN }}
+        run: |
+          git clone https://${{ secrets.API_TOKEN }}:dmaltsev@github.com/dmaltsev/gh-page-test
 
           
 
