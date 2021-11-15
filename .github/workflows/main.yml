@@ -16,6 +16,7 @@ jobs:
         run: |
           mkdir -p ~/ikura/results        
           mkdir -p ~/ikura/project
+          echo ${{ env.GITHUB_WORKSPACE }}
           
       - name: Navigate to project
         run: |
