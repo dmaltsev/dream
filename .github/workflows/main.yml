@@ -18,6 +18,7 @@ jobs:
       
       - name: Push new files into repo
         run: |
+          cd ../
           mkdir newData && cd newData
           git clone https://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@github.com/dmaltsev/gh-page-test.git
           touch index.html
