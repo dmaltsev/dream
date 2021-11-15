@@ -37,7 +37,7 @@ jobs:
           echo "<h1>Hello World!</h1>" > index.html
           git add .
           git commit -m "Update"
-          gut push -u
+          git push -u
 
           
 
