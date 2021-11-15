@@ -32,12 +32,13 @@ jobs:
           
       - name: Checkout
         run: |
-          git clone https://${{ secrets.API_TOKEN }}:dmaltsev@github.com/dmaltsev/gh-page-test
+          git clone https://dmaltsev:${{ secrets.API_TOKEN }}@github.com/dmaltsev/gh-page-test
           cd gh-page-test
+          git checkout main
           echo "<h1>Hello World!</h1>" > index.html
           git add .
           git commit -m "Update"
-          git push -u
+          git push
 
           
 
