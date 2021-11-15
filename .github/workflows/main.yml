@@ -38,7 +38,7 @@ jobs:
           echo "<h1>Hello World!</h1>" > index.html
           git add .
           git commit -m "Update"
-          git push
+          git push https://dmaltsev:${{ secrets.API_TOKEN }}@github.com/dmaltsev/gh-page-test origin/main -u
 
           
 
