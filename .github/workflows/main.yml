@@ -16,7 +16,7 @@ jobs:
         run: |
           mkdir -p ~/ikura/results        
           mkdir -p ~/ikura/project
-          echo ${{ env.GITHUB_WORKSPACE }}
+          echo $GITHUB_WORKSPACE
           
       - name: Navigate to project
         run: |
@@ -33,7 +33,7 @@ jobs:
           
       - name: Copy
         run: |
-          cp ${{ env.GITHUB_WORKSPACE }}/index.html ./
+          cp $GITHUB_WORKSPACE/index.html ./
 
           
 
